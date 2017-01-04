@@ -1,6 +1,6 @@
 name: wmeditor
 type: module
-description: This plugin replaces the default Moono skin in CKEditor with Moono Color
+description: "This modules adds some improvements for CKEditor (eg. flat skin)."
 core: 8.x
 package: Wieni
 version: VERSION

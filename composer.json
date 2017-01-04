@@ -1,0 +1,14 @@
+{
+  "name": "wieni/wmckeditor",
+  "description": "This modules adds some improvements for CKEditor (eg. flat skin).",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sander Tirez",
+      "email": "sander@wieni.be"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "type": "drupal-module"
+}
