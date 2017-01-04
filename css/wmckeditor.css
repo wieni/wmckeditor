@@ -1,0 +1,35 @@
+/**
+ * @file
+ *
+ * Provides some enhancements for CKEditor. Other rules can be added to the front-end
+ * theme. For more information about providing styles make sure to read the Drupal
+ * documentation on https://www.drupal.org/docs/8/api/ckeditor-api.
+ */
+
+.cke_top {
+    background: #fff !important;
+    border-bottom: 1px solid #efefef !important;
+}
+
+.cke_toolgroup {
+    border: 0 !important;
+}
+
+.cke_combo_button {
+    border: 0 !important;
+}
+
+.cke_button,
+.cke_combo_button{
+    border-radius: 3px !important;
+    transition: background .25s !important;
+}
+
+.cke_button:hover,
+.cke_button:focus,
+.cke_button:active,
+.cke_combo_button:hover,
+.cke_combo_button:focus,
+.cke_combo_button:active {
+    background: #efefef !important;
+}
