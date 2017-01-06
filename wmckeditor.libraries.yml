@@ -3,3 +3,9 @@ wmckeditor:
   css:
     component:
       css/wmckeditor.css: {}
+
+textarea.hide-format:
+  version: 0.1
+  css:
+    component:
+      css/textarea.hide-format.css: {}

@@ -13,49 +13,57 @@
  * Implements hook_editor_js_settings_alter().
  * @param array $settings
  */
-function wmckeditor_editor_js_settings_alter(array &$settings) {
-  if (empty($settings['editor']['formats'])) {
-    return;
-  }
-
-  foreach ($settings['editor']['formats'] as $format => $setting) {
-    if ($setting['editor'] == 'ckeditor') {
-      // Change the skin to flat
-      $settings['editor']['formats'][$format]['editorSettings']['skin'] = 'flat,' . base_path() . drupal_get_path('module',
-          'wmckeditor') . '/skins/flat/';
-
-      // Remove the tags on the bottom bar (elementspath plugin).
-      $settings['editor']['formats'][$format]['editorSettings']['removePlugins'] = 'elementspath';
+function wmckeditor_editor_js_settings_alter(array &$settings)
+{
+    if (empty($settings['editor']['formats'])) {
+        return;
     }
-  }
+
+    foreach ($settings['editor']['formats'] as $format => $setting) {
+        if ($setting['editor'] == 'ckeditor') {
+            // Change the skin to flat
+            $settings['editor']['formats'][$format]['editorSettings']['skin'] = 'flat,' . base_path() . drupal_get_path('module',
+                'wmckeditor') . '/skins/flat/';
+
+            // Remove the tags on the bottom bar (elementspath plugin).
+            $settings['editor']['formats'][$format]['editorSettings']['removePlugins'] = 'elementspath';
+        }
+    }
 }
 
 /**
  * Implements hook_field_widget_form_alter().
  */
-function wmckeditor_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
-  switch(true) {
-    case $context['widget'] instanceof \Drupal\text\Plugin\Field\FieldWidget\TextareaWidget:
-      $element['#after_build'][] = '_wmckeditor_remove_textarea_help';
-      $element['#attached']['library'][] = 'wmckeditor/wmckeditor';
-      break;
-    case $context['widget'] instanceof \Drupal\text\Plugin\Field\FieldWidget\TextfieldWidget:
-      $element['#after_build'][] = '_wmckeditor_remove_textarea_help';
-      break;
-  }
+function wmckeditor_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context)
+{
+    switch (true) {
+        case $context['widget'] instanceof \Drupal\text\Plugin\Field\FieldWidget\TextareaWithSummaryWidget:
+            $element['#after_build'][] = '_wmckeditor_remove_textarea_help';
+            $element['#attached']['library'][] = 'wmckeditor/textarea.hide-format';
+            break;
+        case $context['widget'] instanceof \Drupal\text\Plugin\Field\FieldWidget\TextareaWidget:
+            $element['#after_build'][] = '_wmckeditor_remove_textarea_help';
+            $element['#attached']['library'][] = 'wmckeditor/wmckeditor';
+            break;
+        case $context['widget'] instanceof \Drupal\text\Plugin\Field\FieldWidget\TextfieldWidget:
+            $element['#after_build'][] = '_wmckeditor_remove_textarea_help';
+            break;
+    }
 }
 
 /**
  * Helper function that removes some annoying Drupal elements.
  */
-function _wmckeditor_remove_textarea_help($form_element, \Drupal\Core\Form\FormStateInterface $form_state) {
-  if (isset($form_element['format'])) {
-    // All this stuff is needed to hide the help text.
-    unset($form_element['format']['guidelines']);
-    unset($form_element['format']['help']);
-    unset($form_element['format']['#type']);
-    unset($form_element['format']['#theme_wrappers']);
-  }
+function _wmckeditor_remove_textarea_help($form_element, \Drupal\Core\Form\FormStateInterface $form_state)
+{
+    if (isset($form_element['format'])) {
+        // All this stuff is needed to hide the help text.
+        unset($form_element['format']['guidelines']);
+        unset($form_element['format']['help']);
+        unset($form_element['format']['#type']);
+        unset($form_element['format']['#theme_wrappers']);
+    }
 
-  return $form_element;
+
+    return $form_element;
 }

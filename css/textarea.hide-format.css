@@ -1,0 +1,4 @@
+.field--widget-text-textarea-with-summary .form-type-select[class*="-format"] {
+    display: none;
+}
+
